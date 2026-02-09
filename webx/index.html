@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEAVE | Gemini-Powered Commerce OS</title>
+    <meta name="description" content="India's first Gemini-powered Commerce OS that remembers everything, speaks every language, and never treats your customers like strangers.">
+    <meta name="theme-color" content="#0A0A0B">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'gradient': 'gradient 8s linear infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        
+        :root {
+            --weave-black: #0A0A0B;
+            --weave-darker: #050506;
+            --thread-start: #6366F1;
+            --thread-mid: #8B5CF6;
+            --thread-end: #D946EF;
+            --thread-pink: #EC4899;
+            --surface-1: #18181B;
+            --surface-2: #27272A;
+            --surface-3: #3F3F46;
+        }
+        
+        body {
+            background-color: var(--weave-black);
+            color: #FAFAFA;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--thread-start), var(--thread-mid), var(--thread-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass {
+            background: rgba(24, 24, 27, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(63, 63, 70, 0.5);
+        }
+        
+        .thread-line {
+            position: fixed;
+            width: 1px;
+            height: 100vh;
+            background: linear-gradient(180deg, transparent, var(--thread-start), var(--thread-mid), var(--thread-end), transparent);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        
+        /* 3D Card Flip */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .group:hover .group-hover\:rotate-y-180 { transform: rotateY(180deg); }
+        
+        /* Chat Bubbles */
+        .chat-bubble-user {
+            background: linear-gradient(135deg, var(--thread-start), var(--thread-mid));
+            border-radius: 20px 20px 4px 20px;
+        }
+        .chat-bubble-weave {
+            background: var(--surface-2);
+            border: 1px solid var(--surface-3);
+            border-radius: 20px 20px 20px 4px;
+        }
+        
+        /* Typing dots */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Agent tabs */
+        .agent-tab.active {
+            background: linear-gradient(135deg, var(--thread-start), var(--thread-end));
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* Scroll reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Pulse ring */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(139, 92, 246, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+        .pulse-ring { animation: pulse-ring 2s infinite; }
+        
+        /* WhatsApp bubbles */
+        .whatsapp-bubble {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .whatsapp-bubble.user {
+            background: #DCF8C6;
+            color: #000;
+            margin-left: auto;
+            border-bottom-right-radius: 0;
+        }
+        .whatsapp-bubble.weave {
+            background: white;
+            color: #000;
+            border-bottom-left-radius: 0;
+        }
+        
+        /* Feature cards */
+        .feature-card {
+            background: var(--surface-1);
+            border: 1px solid var(--surface-2);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s ease;
+        }
+        .feature-card:hover {
+            border-color: var(--thread-start);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px -20px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--surface-1); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--thread-start), var(--thread-end));
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Thread Lines -->
+    <div class="thread-line" style="left: 5%;"></div>
+    <div class="thread-line" style="left: 25%; animation-delay: 1s;"></div>
+    <div class="thread-line" style="left: 50%; animation-delay: 2s;"></div>
+    <div class="thread-line" style="left: 75%; animation-delay: 0.5s;"></div>
+    <div class="thread-line" style="left: 95%; animation-delay: 1.5s;"></div>
+
+    <!-- ============================================ -->
+    <!-- NAVIGATION -->
+    <!-- ============================================ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="#hero" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-xl">W</span>
+                    </div>
+                    <span class="text-white font-bold text-xl tracking-tight hidden sm:block">WEAVE</span>
+                </a>
+                
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="#problem" class="px-4 py-2 text-[#A1A1AA] hover:text-white transition text-sm font-medium">Problem</a>
+                    <a href="#demo" class="px-4 py-2 text-[#A1A1AA] hover:text-white transition text-sm font-medium">Demo</a>
+                    <a href="#agents" class="px-4 py-2 text-[#A1A1AA] hover:text-white transition text-sm font-medium">Agents</a>
+                    <a href="#bridge" class="px-4 py-2 text-[#A1A1AA] hover:text-white transition text-sm font-medium">Bridge</a>
+                    <a href="#impact" class="px-4 py-2 text-[#A1A1AA] hover:text-white transition text-sm font-medium">Impact</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="https://github.com" target="_blank" class="hidden sm:block px-4 py-2 text-[#A1A1AA] hover:text-white transition text-sm">GitHub</a>
+                    <button onclick="document.getElementById('demo').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-[#6366F1] to-[#D946EF] px-4 sm:px-6 py-2.5 text-white rounded-full font-semibold text-sm hover:opacity-90 transition">
+                        Try Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION -->
+    <!-- ============================================ -->
+    <section id="hero" class="min-h-screen relative flex flex-col justify-center items-center px-4 pt-24 pb-12">
+        <div class="max-w-5xl mx-auto text-center z-10">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-float">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                <span class="text-[#A1A1AA] text-sm">Built for Gemini 3 Hackathon</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
+                Every Conversation.<br>
+                <span class="gradient-text">One Thread.</span><br>
+                <span class="text-[#A1A1AA]">Infinite Memory.</span>
+            </h1>
+
+            <p class="text-lg text-[#A1A1AA] max-w-2xl mx-auto mb-10">
+                India's first <span class="text-white font-medium">Gemini-powered Commerce OS</span> that remembers everything, 
+                speaks every language, and never treats your customers like strangers.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <button onclick="document.getElementById('demo').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2 hover:bg-gray-100 transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                    Try Live Demo
+                </button>
+                <button onclick="document.getElementById('video-modal').classList.remove('hidden')" class="w-full sm:w-auto glass px-8 py-4 text-white rounded-full font-semibold text-lg hover:bg-white/10 transition">
+                    Watch 3-Min Demo
+                </button>
+            </div>
+
+            <!-- Hero Preview -->
+            <div class="relative max-w-4xl mx-auto glass rounded-2xl overflow-hidden border border-[#27272A]">
+                <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[#27272A]">
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center">📱</div>
+                            <div class="text-left">
+                                <div class="text-white font-medium text-sm">WhatsApp</div>
+                                <div class="text-[#71717A] text-xs">Customer</div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="bg-[#DCF8C6] text-black p-3 rounded-lg rounded-tl-none text-sm ml-auto max-w-[80%]">
+                                "I need a kurta for the wedding"
+                            </div>
+                            <div class="bg-white text-black p-3 rounded-lg rounded-tr-none text-sm max-w-[80%]">
+                                "Welcome back! Your kurta is in Trial Room 3"
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center">🏪</div>
+                            <div class="text-left">
+                                <div class="text-white font-medium text-sm">Store Tablet</div>
+                                <div class="text-[#71717A] text-xs">Associate View</div>
+                            </div>
+                        </div>
+                        <div class="bg-[#0A0A0B] rounded-xl p-4 border border-[#27272A]">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                                <span class="text-emerald-400 text-xs">Customer Arrived</span>
+                            </div>
+                            <div class="text-white text-sm">Priya Sharma</div>
+                            <div class="text-[#A1A1AA] text-xs">Reserved: Navy Kurta (Size 40)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- PROBLEM SECTION -->
+    <!-- ============================================ -->
+    <section id="problem" class="py-24 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+                    Retail Has <span class="text-red-500">Amnesia</span>
+                </h2>
+                <p class="text-lg text-[#A1A1AA]">₹52,000 Crores lost annually because brands treat loyal customers like strangers.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <!-- Card 1 -->
+                <div class="group perspective-1000 h-[340px] cursor-pointer scroll-reveal">
+                    <div class="relative w-full h-full transition-all duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute inset-0 backface-hidden bg-[#18181B] border border-[#27272A] rounded-2xl p-6 flex flex-col">
+                            <div class="text-3xl mb-4">💬</div>
+                            <h3 class="text-xl font-bold text-white mb-3">Channel Amnesia</h3>
+                            <div class="flex-1 space-y-3">
+                                <div class="bg-[#0A0A0B] rounded-lg p-3 border border-[#27272A]">
+                                    <span class="text-[#71717A] text-xs">Customer:</span>
+                                    <span class="text-white text-sm block">"I bought a shirt last month"</span>
+                                </div>
+                                <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                                    <span class="text-red-400 text-xs">Brand:</span>
+                                    <span class="text-red-300 text-sm block">"Hi! How can I help you?"</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-red-400 text-sm">❌ Zero Memory</div>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-[#6366F1]/20 to-[#D946EF]/20 border border-[#6366F1]/30 rounded-2xl p-6 flex flex-col">
+                            <div class="text-3xl mb-4">🧠</div>
+                            <h3 class="text-xl font-bold text-white mb-3">With WEAVE</h3>
+                            <div class="flex-1 space-y-3">
+                                <div class="bg-[#0A0A0B]/50 rounded-lg p-3">
+                                    <span class="text-white text-sm">"The blue Van Heusen? Size 40. Want matching trousers?"</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-emerald-400 text-sm">✓ Thread Memory™</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group perspective-1000 h-[340px] cursor-pointer scroll-reveal" style="transition-delay: 0.1s;">
+                    <div class="relative w-full h-full transition-all duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute inset-0 backface-hidden bg-[#18181B] border border-[#27272A] rounded-2xl p-6 flex flex-col">
+                            <div class="text-3xl mb-4">🌐</div>
+                            <h3 class="text-xl font-bold text-white mb-3">Language Wall</h3>
+                            <div class="flex-1 space-y-3">
+                                <div class="bg-[#0A0A0B] rounded-lg p-3 border border-[#27272A]">
+                                    <span class="text-[#71717A] text-xs">Customer:</span>
+                                    <span class="text-white text-sm block">"Bhai kuch formal dikhao"</span>
+                                </div>
+                                <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                                    <span class="text-red-400 text-xs">Bot:</span>
+                                    <span class="text-red-300 text-sm block">"Sorry, I don't understand"</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-red-400 text-sm">❌ 240M Users Locked Out</div>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-[#6366F1]/20 to-[#D946EF]/20 border border-[#6366F1]/30 rounded-2xl p-6 flex flex-col">
+                            <div class="text-3xl mb-4">🗣️</div>
+                            <h3 class="text-xl font-bold text-white mb-3">With WEAVE</h3>
+                            <div class="flex-1 space-y-3">
+                                <div class="bg-[#0A0A0B]/50 rounded-lg p-3">
+                                    <span class="text-white text-sm">"Zaroor! Aapke size 40 mein 3 options hain..."</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-emerald-400 text-sm">✓ 12 Languages</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group perspective-1000 h-[340px] cursor-pointer scroll-reveal" style="transition-delay: 0.2s;">
+                    <div class="relative w-full h-full transition-all duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute inset-0 backface-hidden bg-[#18181B] border border-[#27272A] rounded-2xl p-6 flex flex-col">
+                            <div class="text-3xl mb-4">📏</div>
+                            <h3 class="text-xl font-bold text-white mb-3">Sizing Lottery</h3>
+                            <div class="flex-1 space-y-3">
+                                <div class="bg-[#0A0A0B] rounded-lg p-3 border border-[#27272A]">
+                                    <span class="text-[#71717A] text-xs">Customer:</span>
+                                    <span class="text-white text-sm block">"I'm usually size L"</span>
+                                </div>
+                                <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                                    <span class="text-red-400 text-xs">Result:</span>
+                                    <span class="text-red-300 text-sm block">35% returns due to wrong fit</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-red-400 text-sm">❌ No Context</div>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-[#6366F1]/20 to-[#D946EF]/20 border border-[#6366F1]/30 rounded-2xl p-6 flex flex-col">
+                            <div class="text-3xl mb-4">🧬</div>
+                            <h3 class="text-xl font-bold text-white mb-3">With WEAVE</h3>
+                            <div class="flex-1 space-y-3">
+                                <div class="bg-[#0A0A0B]/50 rounded-lg p-3">
+                                    <span class="text-white text-sm">"Van Heusen L = 42, but you prefer slim fit. Try 40."</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-emerald-400 text-sm">✓ 37% Fewer Returns</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="glass rounded-2xl p-8" id="stats-container">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-red-400 stat-counter" data-target="72" data-suffix="%">0%</div>
+                        <div class="text-[#A1A1AA] text-sm">Cart Abandonment</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-red-400 stat-counter" data-target="35" data-suffix="%">0%</div>
+                        <div class="text-[#A1A1AA] text-sm">Returns (Sizing)</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-red-400 stat-counter" data-target="240" data-suffix="M">0M</div>
+                        <div class="text-[#A1A1AA] text-sm">Users Locked Out</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-red-400 stat-counter" data-target="73" data-suffix="%">0%</div>
+                        <div class="text-[#A1A1AA] text-sm">Family Decisions Ignored</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- LIVE DEMO SANDBOX -->
+    <!-- ============================================ -->
+    <section id="demo" class="py-24 px-4 bg-[#0A0A0B]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+                    Try WEAVE <span class="gradient-text">Right Now</span>
+                </h2>
+                <p class="text-lg text-[#A1A1AA]">Send a message. See the magic. Real Gemini. Real time.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-6">
+                <!-- Chat Window -->
+                <div class="lg:col-span-3">
+                    <div class="bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden h-[600px] flex flex-col">
+                        <div class="bg-[#27272A] px-6 py-4 flex items-center gap-3 border-b border-[#3F3F46]">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center">
+                                <span class="text-white font-bold">W</span>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">WEAVE Assistant</div>
+                                <div class="text-xs text-emerald-400 flex items-center gap-1">
+                                    <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                                    Powered by Gemini 2.0
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0A0A0B]">
+                            <div class="flex gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex-shrink-0 flex items-center justify-center text-xs font-bold text-white">W</div>
+                                <div class="chat-bubble-weave p-4 max-w-[85%]">
+                                    <p class="text-white mb-3 text-sm">Hi! I'm WEAVE. Try asking me:</p>
+                                    <ul class="text-[#A1A1AA] text-sm space-y-1">
+                                        <li>• "Show me kurtas for a wedding, budget 5000"</li>
+                                        <li>• "Bhai kuch formal dikhao" (Hinglish works!)</li>
+                                        <li>• Upload an outfit photo for matching</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#27272A] px-4 py-3 border-t border-[#3F3F46]">
+                            <div class="flex items-center gap-2">
+                                <input type="text" id="chat-input" placeholder="Type a message..." 
+                                    class="flex-1 bg-[#0A0A0B] text-white px-4 py-2 rounded-full border border-[#3F3F46] focus:outline-none focus:border-[#6366F1] text-sm">
+                                <button id="send-btn" class="p-3 bg-gradient-to-r from-[#6366F1] to-[#D946EF] rounded-full hover:opacity-90 transition">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Panel -->
+                <div class="lg:col-span-2">
+                    <div class="bg-[#18181B] border border-[#27272A] rounded-2xl h-[600px] overflow-hidden flex flex-col">
+                        <div class="bg-[#27272A] px-6 py-4 border-b border-[#3F3F46]">
+                            <div class="text-white font-medium flex items-center gap-2">
+                                <svg class="w-5 h-5 text-[#6366F1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                Thread Memory™
+                            </div>
+                            <div class="text-xs text-[#A1A1AA]">Real-time context tracking</div>
+                        </div>
+
+                        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-[#71717A]">Session ID</span>
+                                    <span class="text-white font-mono text-xs" id="session-id">demo_xyz123</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-[#71717A]">Language</span>
+                                    <span class="text-white" id="detected-lang">Waiting...</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-[#71717A]">Intent</span>
+                                    <span class="text-white" id="current-intent">Waiting...</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-[#71717A]">Budget</span>
+                                    <span class="text-white" id="detected-budget">-</span>
+                                </div>
+                            </div>
+
+                            <hr class="border-[#27272A]">
+
+                            <div>
+                                <div class="text-[#A1A1AA] text-sm mb-3">Style DNA (Demo User)</div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-[#27272A] rounded-lg p-3 text-center border border-[#3F3F46]">
+                                        <div class="text-xs text-[#71717A]">Fit</div>
+                                        <div class="text-white text-sm">Slim</div>
+                                    </div>
+                                    <div class="bg-[#27272A] rounded-lg p-3 text-center border border-[#3F3F46]">
+                                        <div class="text-xs text-[#71717A]">Colors</div>
+                                        <div class="text-white text-sm">Blues, Navy</div>
+                                    </div>
+                                    <div class="bg-[#27272A] rounded-lg p-3 text-center border border-[#3F3F46]">
+                                        <div class="text-xs text-[#71717A]">Size</div>
+                                        <div class="text-white text-sm">40 (M)</div>
+                                    </div>
+                                    <div class="bg-[#27272A] rounded-lg p-3 text-center border border-[#3F3F46]">
+                                        <div class="text-xs text-[#71717A]">Price Range</div>
+                                        <div class="text-white text-sm">₹3K-8K</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="border-[#27272A]">
+
+                            <div>
+                                <div class="text-[#A1A1AA] text-sm mb-3">Memory Timeline</div>
+                                <div id="memory-timeline" class="space-y-2">
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <span class="w-2 h-2 bg-[#3F3F46] rounded-full"></span>
+                                        <span class="text-[#71717A] text-xs">Waiting...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenarios -->
+            <div class="mt-8 glass rounded-2xl p-6">
+                <div class="text-[#A1A1AA] text-sm mb-4">💡 Quick Scenarios:</div>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="runScenario('wedding')" class="px-4 py-2 bg-[#27272A] hover:bg-[#3F3F46] text-white rounded-full transition text-sm border border-[#3F3F46]">🎊 Wedding Shopping</button>
+                    <button onclick="runScenario('rescue')" class="px-4 py-2 bg-[#27272A] hover:bg-[#3F3F46] text-white rounded-full transition text-sm border border-[#3F3F46]">🚨 Cart Rescue</button>
+                    <button onclick="runScenario('hinglish')" class="px-4 py-2 bg-[#27272A] hover:bg-[#3F3F46] text-white rounded-full transition text-sm border border-[#3F3F46]">🗣️ Hinglish Demo</button>
+                    <button onclick="runScenario('family')" class="px-4 py-2 bg-[#27272A] hover:bg-[#3F3F46] text-white rounded-full transition text-sm border border-[#3F3F46]">👨‍👩‍👧 Family Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 7 AGENTS SECTION -->
+    <!-- ============================================ -->
+    <section id="agents" class="py-24 px-4 bg-[#0A0A0B]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+                    The Agent <span class="gradient-text">Constellation</span>
+                </h2>
+                <p class="text-lg text-[#A1A1AA]">7 specialized AI agents working in perfect harmony</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="showAgent('discovery')" class="agent-tab active px-4 py-2 rounded-full text-sm font-medium transition border border-[#27272A] bg-[#18181B] text-[#A1A1AA]" data-agent="discovery">🔍 Discovery</button>
+                <button onclick="showAgent('style')" class="agent-tab px-4 py-2 rounded-full text-sm font-medium transition border border-[#27272A] bg-[#18181B] text-[#A1A1AA]" data-agent="style">🧬 Style DNA</button>
+                <button onclick="showAgent('rescue')" class="agent-tab px-4 py-2 rounded-full text-sm font-medium transition border border-[#27272A] bg-[#18181B] text-[#A1A1AA]" data-agent="rescue">🚨 Rescue</button>
+                <button onclick="showAgent('bridge')" class="agent-tab px-4 py-2 rounded-full text-sm font-medium transition border border-[#27272A] bg-[#18181B] text-[#A1A1AA]" data-agent="bridge">🌉 Bridge</button>
+                <button onclick="showAgent('family')" class="agent-tab px-4 py-2 rounded-full text-sm font-medium transition border border-[#27272A] bg-[#18181B] text-[#A1A1AA]" data-agent="family">👨‍👩‍👧 Family</button>
+                <button onclick="showAgent('proactive')" class="agent-tab px-4 py-2 rounded-full text-sm font-medium transition border border-[#27272A] bg-[#18181B] text-[#A1A1AA]" data-agent="proactive">⚡ Proactive</button>
+                <button onclick="showAgent('voice')" class="agent-tab px-4 py-2 rounded-full text-sm font-medium transition border border-[#27272A] bg-[#18181B] text-[#A1A1AA]" data-agent="voice">🎙️ Voice</button>
+            </div>
+
+            <!-- Panels -->
+            <div class="bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden">
+                
+                <!-- Discovery -->
+                <div id="agent-discovery" class="agent-panel p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="text-4xl">🔍</span>
+                                <h3 class="text-2xl font-bold text-white">Discovery Agent</h3>
+                            </div>
+                            <p class="text-[#A1A1AA] mb-6">Understands what you want, even when you don't know how to ask. Handles text, voice (12 languages), and images.</p>
+                            <div class="space-y-2 mb-6">
+                                <div class="flex items-center gap-2 text-sm text-white"><span class="text-emerald-400">✓</span> Multimodal input</div>
+                                <div class="flex items-center gap-2 text-sm text-white"><span class="text-emerald-400">✓</span> 12 Indian languages</div>
+                                <div class="flex items-center gap-2 text-sm text-white"><span class="text-emerald-400">✓</span> Style DNA-aware</div>
+                            </div>
+                            <button onclick="runScenario('hinglish'); document.getElementById('demo').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-[#6366F1] to-[#D946EF] px-6 py-3 rounded-full text-white font-medium hover:opacity-90 transition">See it in action →</button>
+                        </div>
+                        <div class="bg-[#0A0A0B] rounded-xl p-6 border border-[#27272A]">
+                            <div class="text-xs text-[#6366F1] mb-4 uppercase">Live Example</div>
+                            <div class="space-y-3">
+                                <div class="bg-[#27272A] rounded-lg p-3">
+                                    <div class="text-xs text-[#71717A] mb-1">Input (Hinglish Voice)</div>
+                                    <div class="text-white text-sm">"Bhai next week shaadi hai, kuch ethnic dikhao"</div>
+                                </div>
+                                <div class="flex justify-center">
+                                    <svg class="w-6 h-6 text-[#6366F1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                                </div>
+                                <div class="bg-[#27272A] rounded-lg p-3">
+                                    <div class="text-xs text-[#71717A] mb-2">Output</div>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div class="bg-[#0A0A0B] rounded-lg overflow-hidden">
+                                            <div class="h-16 bg-gradient-to-br from-blue-600 to-blue-800"></div>
+                                            <div class="p-2 text-xs text-white">Navy Kurta ₹4,200</div>
+                                        </div>
+                                        <div class="bg-[#0A0A0B] rounded-lg overflow-hidden">
+                                            <div class="h-16 bg-gradient-to-br from-indigo-600 to-indigo-800"></div>
+                                            <div class="p-2 text-xs text-white">Royal Blue ₹4,800</div>
+                                        </div>
+                                        <div class="bg-[#0A0A0B] rounded-lg overflow-hidden">
+                                            <div class="h-16 bg-gradient-to-br from-teal-600 to-teal-800"></div>
+                                            <div class="p-2 text-xs text-white">Teal Set ₹4,500</div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 text-xs text-emerald-400">✓ Size adjusted to 42 based on Style DNA</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Style DNA -->
+                <div id="agent-style" class="agent-panel hidden p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="text-4xl">🧬</span>
+                                <h3 class="text-2xl font-bold text-white">Style DNA Agent</h3>
+                            </div>
+                            <p class="text-[#A1A1AA] mb-6">Builds a unique genetic profile for every customer. 512-dimensional vectors capturing fit, color, price preference, and cross-brand sizing.</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 text-sm text-white"><span class="text-emerald-400">✓</span> Cross-brand size mapping</div>
+                                <div class="flex items-center gap-2 text-sm text-white"><span class="text-emerald-400">✓</span> Color preference learning</div>
+                                <div class="flex items-center gap-2 text-sm text-white"><span class="text-emerald-400">✓</span> Price sensitivity analysis</div>
+                            </div>
+                        </div>
+                        <div class="bg-[#0A0A0B] rounded-xl p-6 border border-[#27272A] flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center text-5xl">🧬</div>
+                                <div class="text-white font-medium">Style DNA Profile</div>
+                                <div class="text-[#A1A1AA] text-sm">47 dimensions tracked</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rescue -->
+                <div id="agent-rescue" class="agent-panel hidden p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="text-4xl">🚨</span>
+                                <h3 class="text-2xl font-bold text-white">Rescue Agent</h3>
+                            </div>
+                            <p class="text-[#A1A1AA] mb-6">Detects cart abandonment and sends personalized recovery messages based on items and customer history.</p>
+                            <div class="bg-[#27272A] rounded-lg p-4 border border-[#3F3F46] mb-4">
+                                <div class="text-xs text-[#71717A] mb-1">TRIGGER</div>
+                                <div class="text-white text-sm">Cart > ₹3000 + Inactive > 30 mins + Size in stock</div>
+                            </div>
+                        </div>
+                        <div class="bg-[#0A0A0B] rounded-xl p-6 border border-[#27272A]">
+                            <div class="bg-[#27272A] p-4 rounded-lg border border-[#3F3F46]">
+                                <div class="text-white text-sm mb-2">"Hey! That navy kurta you liked is selling fast - only 3 left in your size (40). Should I hold it for you?"</div>
+                                <div class="flex gap-2 mt-3">
+                                    <button class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs">Yes, hold it</button>
+                                    <button class="px-3 py-1 bg-[#3F3F46] text-[#A1A1AA] rounded text-xs">Not now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bridge -->
+                <div id="agent-bridge" class="agent-panel hidden p-8">
+                    <div class="text-center py-12">
+                        <div class="text-4xl mb-4">🌉</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Bridge Agent</h3>
+                        <p class="text-[#A1A1AA]">Seamlessly connects digital conversations to in-store experiences</p>
+                    </div>
+                </div>
+
+                <!-- Family -->
+                <div id="agent-family" class="agent-panel hidden p-8">
+                    <div class="text-center py-12">
+                        <div class="text-4xl mb-4">👨‍👩‍👧</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Family Sync Agent</h3>
+                        <p class="text-[#A1A1AA]">Coordinates multi-user shopping carts for family decision making</p>
+                    </div>
+                </div>
+
+                <!-- Proactive -->
+                <div id="agent-proactive" class="agent-panel hidden p-8">
+                    <div class="text-center py-12">
+                        <div class="text-4xl mb-4">⚡</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Proactive Agent</h3>
+                        <p class="text-[#A1A1AA]">Anticipates needs before customers ask based on calendar and events</p>
+                    </div>
+                </div>
+
+                <!-- Voice -->
+                <div id="agent-voice" class="agent-panel hidden p-8">
+                    <div class="text-center py-12">
+                        <div class="text-4xl mb-4">🎙️</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Voice Agent</h3>
+                        <p class="text-[#A1A1AA]">Natural language processing for 12 Indian languages and dialects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- BRIDGE DEMO -->
+    <!-- ============================================ -->
+    <section id="bridge" class="py-24 px-4 bg-[#0A0A0B]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+                    The <span class="gradient-text">Bridge</span>
+                </h2>
+                <p class="text-lg text-[#A1A1AA]">Watch context flow seamlessly from WhatsApp to Store</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8 relative">
+                <!-- Customer Side -->
+                <div class="bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden">
+                    <div class="bg-[#075E54] px-4 py-3 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">👤</div>
+                        <div>
+                            <div class="text-white font-medium text-sm">Priya Sharma</div>
+                            <div class="text-white/60 text-xs">Online</div>
+                        </div>
+                    </div>
+                    <div id="bridge-customer-chat" class="h-80 bg-[#ECE5DD] p-4 overflow-y-auto space-y-3">
+                        <!-- Messages injected by JS -->
+                    </div>
+                    <div class="bg-[#18181B] p-4">
+                        <button id="scan-qr-btn" onclick="scanQR()" disabled class="w-full py-3 bg-[#25D366] text-white rounded-lg font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                            📷 Scan QR Code (Arrive at Store)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Store Side -->
+                <div class="bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden">
+                    <div class="bg-[#27272A] px-4 py-3 flex items-center gap-3 border-b border-[#3F3F46]">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center">📋</div>
+                        <div>
+                            <div class="text-white font-medium text-sm">Store Associate</div>
+                            <div class="text-[#A1A1AA] text-xs">Phoenix Mall, Mumbai</div>
+                        </div>
+                    </div>
+                    <div id="bridge-store-tablet" class="h-80 p-6 overflow-y-auto bg-[#0A0A0B]">
+                        <div id="tablet-waiting" class="h-full flex flex-col items-center justify-center text-center">
+                            <div class="w-16 h-16 bg-[#27272A] rounded-full flex items-center justify-center mb-4 animate-pulse">👀</div>
+                            <div class="text-[#A1A1AA]">Waiting for customers...</div>
+                        </div>
+                        <div id="tablet-arrived" class="hidden space-y-4">
+                            <div class="bg-emerald-500/20 border border-emerald-500/30 rounded-xl p-4 animate-pulse">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center">🟢</div>
+                                    <div>
+                                        <div class="text-emerald-400 font-semibold text-sm">CUSTOMER ARRIVED!</div>
+                                        <div class="text-emerald-300 text-xs">Priya Sharma just scanned in</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-[#27272A] rounded-xl p-4 border border-[#3F3F46]">
+                                <div class="text-[#71717A] text-xs mb-2 uppercase">Reserved Item</div>
+                                <div class="flex gap-4">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg"></div>
+                                    <div>
+                                        <div class="text-white font-medium text-sm">Navy Silk Kurta</div>
+                                        <div class="text-[#A1A1AA] text-xs">Size 40 • Trial Room 3</div>
+                                        <div class="text-emerald-400 text-xs mt-1">₹4,200</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-[#27272A] rounded-xl p-4 border border-[#3F3F46]">
+                                <div class="text-[#71717A] text-xs mb-2 uppercase">Style DNA</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-[#18181B] rounded text-xs text-white">Slim Fit</span>
+                                    <span class="px-2 py-1 bg-[#18181B] rounded text-xs text-white">Wedding</span>
+                                    <span class="px-2 py-1 bg-[#18181B] rounded text-xs text-white">₹3K-5K</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Line -->
+                <div class="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div id="connection-line" class="w-24 h-1 bg-gradient-to-r from-[#6366F1] to-[#D946EF] rounded-full opacity-0 transition-opacity duration-500"></div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="runBridgeDemo()" class="px-8 py-4 bg-gradient-to-r from-[#6366F1] to-[#D946EF] text-white rounded-full font-medium text-lg hover:opacity-90 transition pulse-ring">
+                    ▶ Run Bridge Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- IMPACT SECTION -->
+    <!-- ============================================ -->
+    <section id="impact" class="py-24 px-4 bg-[#0A0A0B]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+                    The <span class="gradient-text">Impact</span>
+                </h2>
+                <p class="text-lg text-[#A1A1AA]">Numbers that make CFOs smile</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="glass rounded-2xl p-6 text-center hover:border-[#6366F1]/50 transition">
+                    <div class="text-[#71717A] text-sm mb-3">Cart Abandonment</div>
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <span class="text-3xl font-bold text-red-400">72%</span>
+                        <span class="text-xl text-[#71717A]">→</span>
+                        <span class="text-3xl font-bold text-emerald-400">38%</span>
+                    </div>
+                    <div class="text-emerald-400 text-sm">↓ 47% reduction</div>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center hover:border-[#6366F1]/50 transition">
+                    <div class="text-[#71717A] text-sm mb-3">Returns (Sizing)</div>
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <span class="text-3xl font-bold text-red-400">35%</span>
+                        <span class="text-xl text-[#71717A]">→</span>
+                        <span class="text-3xl font-bold text-emerald-400">22%</span>
+                    </div>
+                    <div class="text-emerald-400 text-sm">↓ 37% reduction</div>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center hover:border-[#6366F1]/50 transition">
+                    <div class="text-[#71717A] text-sm mb-3">Average Order Value</div>
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <span class="text-3xl font-bold text-[#A1A1AA]">₹2.8K</span>
+                        <span class="text-xl text-[#71717A]">→</span>
+                        <span class="text-3xl font-bold text-emerald-400">₹3.6K</span>
+                    </div>
+                    <div class="text-emerald-400 text-sm">↑ 30% increase</div>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center hover:border-[#6366F1]/50 transition">
+                    <div class="text-[#71717A] text-sm mb-3">Tier 2/3 Engagement</div>
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <span class="text-3xl font-bold text-[#A1A1AA]">18%</span>
+                        <span class="text-xl text-[#71717A]">→</span>
+                        <span class="text-3xl font-bold text-emerald-400">38%</span>
+                    </div>
+                    <div class="text-emerald-400 text-sm">↑ 111% increase</div>
+                </div>
+            </div>
+
+            <!-- ROI Calculator -->
+            <div class="bg-gradient-to-r from-[#6366F1]/10 to-[#D946EF]/10 border border-[#6366F1]/30 rounded-2xl p-8 sm:p-12">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-white mb-2">ROI for Enterprise Retailers</h3>
+                    <p class="text-[#A1A1AA]">Based on 500 stores, ₹4,000 Cr annual revenue</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="text-5xl font-bold gradient-text mb-2">45,000%</div>
+                        <div class="text-[#A1A1AA] text-sm">Return on Investment</div>
+                    </div>
+                    <div class="border-x border-[#27272A]">
+                        <div class="text-5xl font-bold gradient-text mb-2">₹1,080 Cr</div>
+                        <div class="text-[#A1A1AA] text-sm">Incremental Revenue / Year</div>
+                    </div>
+                    <div>
+                        <div class="text-5xl font-bold gradient-text mb-2">&lt;2 weeks</div>
+                        <div class="text-[#A1A1AA] text-sm">Payback Period</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CTA SECTION -->
+    <!-- ============================================ -->
+    <section id="cta" class="py-24 px-4 relative overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0A0A0B] via-[#0D0D10] to-[#0A0A0B]"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#6366F1]/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-[#D946EF]/20 rounded-full blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-5xl sm:text-6xl md:text-7xl font-black text-white mb-6 leading-tight">
+                Ready to <span class="gradient-text">Weave</span>?
+            </h2>
+            <p class="text-xl text-[#A1A1AA] mb-12 max-w-2xl mx-auto">
+                Stop treating your best customers like strangers. Start building relationships that convert.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#demo" class="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                    Try Live Demo
+                </a>
+                <a href="https://github.com" target="_blank" class="w-full sm:w-auto glass px-8 py-4 text-white rounded-full font-bold text-lg hover:bg-white/10 transition flex items-center justify-center gap-2">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="mb-12">
+                <div class="text-[#71717A] text-sm mb-4 uppercase tracking-widest">Built With</div>
+                <div class="flex flex-wrap justify-center gap-6 text-[#A1A1AA]">
+                    <div class="flex items-center gap-2"><span class="w-2 h-2 bg-[#6366F1] rounded-full"></span>Gemini 2.0</div>
+                    <div class="flex items-center gap-2"><span class="w-2 h-2 bg-[#8B5CF6] rounded-full"></span>Vertex AI</div>
+                    <div class="flex items-center gap-2"><span class="w-2 h-2 bg-[#D946EF] rounded-full"></span>Firestore</div>
+                    <div class="flex items-center gap-2"><span class="w-2 h-2 bg-emerald-400 rounded-full"></span>WhatsApp API</div>
+                </div>
+            </div>
+
+            <div class="text-[#71717A] text-sm">
+                Built with ❤️ for the Gemini 3 Hackathon
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-[#18181B] border border-[#27272A] rounded-2xl p-8 max-w-2xl w-full text-center" onclick="event.stopPropagation()">
+            <div class="text-6xl mb-4">🎬</div>
+            <h3 class="text-2xl font-bold text-white mb-2">Demo Video</h3>
+            <p class="text-[#A1A1AA] mb-6">Video player would be embedded here</p>
+            <button onclick="document.getElementById('video-modal').classList.add('hidden')" class="px-6 py-2 bg-[#27272A] text-white rounded-full hover:bg-[#3F3F46] transition">Close</button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================ -->
+    <script>
+        // Stats Counter
+        const observerOptions = { threshold: 0.5 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.stat-counter').forEach(counter => {
+                        const target = parseInt(counter.dataset.target);
+                        const suffix = counter.dataset.suffix;
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                counter.textContent = target + suffix;
+                                clearInterval(timer);
+                            } else {
+                                counter.textContent = Math.floor(current) + suffix;
+                            }
+                        }, 30);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.getElementById('stats-container') && observer.observe(document.getElementById('stats-container'));
+
+        // Scroll Reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('revealed');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+
+        // Chat Functionality
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const memoryTimeline = document.getElementById('memory-timeline');
+
+        function addMessage(text, sender, products = null) {
+            const div = document.createElement('div');
+            div.className = `flex gap-3 ${sender === 'user' ? 'flex-row-reverse' : ''}`;
+            
+            if (sender === 'user') {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-[#3F3F46] flex items-center justify-center text-xs">👤</div>
+                    <div class="chat-bubble-user p-3 max-w-[80%] text-white text-sm">${text}</div>
+                `;
+            } else {
+                let productsHtml = products ? `<div class="grid grid-cols-3 gap-2 mt-3">${products.map(p => `
+                    <div class="bg-[#0A0A0B] rounded-lg overflow-hidden border border-[#3F3F46]">
+                        <div class="h-16 bg-gradient-to-br from-[#6366F1] to-[#D946EF]"></div>
+                        <div class="p-2"><div class="text-white text-xs truncate">${p.name}</div><div class="text-[#A1A1AA] text-xs">₹${p.price}</div></div>
+                    </div>
+                `).join('')}</div>` : '';
+                
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center text-xs font-bold text-white">W</div>
+                    <div class="chat-bubble-weave p-3 max-w-[80%]"><p class="text-white text-sm">${text}</p>${productsHtml}</div>
+                `;
+            }
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const id = 'typing-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'flex gap-3';
+            div.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center text-xs font-bold text-white">W</div>
+                <div class="chat-bubble-weave p-4"><div class="flex gap-1"><div class="w-2 h-2 bg-[#A1A1AA] rounded-full typing-dot"></div><div class="w-2 h-2 bg-[#A1A1AA] rounded-full typing-dot"></div><div class="w-2 h-2 bg-[#A1A1AA] rounded-full typing-dot"></div></div></div>
+            `;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return id;
+        }
+
+        function removeTyping(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function addTimelineEvent(text) {
+            const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2 text-sm';
+            div.innerHTML = `<span class="w-2 h-2 bg-emerald-400 rounded-full"></span><span class="text-[#A1A1AA] text-xs">${time}</span><span class="text-white">${text}</span>`;
+            if (memoryTimeline.children.length === 1 && memoryTimeline.children[0].textContent.includes('Waiting')) memoryTimeline.innerHTML = '';
+            memoryTimeline.appendChild(div);
+        }
+
+        async function sendMessage(text, isScenario = false) {
+            if (!text.trim()) return;
+            addMessage(text, 'user');
+            chatInput.value = '';
+            
+            const typingId = showTyping();
+            addTimelineEvent('Processing: ' + text.substring(0, 30) + '...');
+            
+            await new Promise(r => setTimeout(r, 1500));
+            removeTyping(typingId);
+            
+            let response = "I'd be happy to help! Could you tell me more about the occasion?";
+            let products = [];
+            
+            if (text.toLowerCase().includes('kurta') || text.toLowerCase().includes('wedding') || text.toLowerCase().includes('shaadi')) {
+                response = "Perfect! Based on your Style DNA, here are 3 options for the wedding:";
+                products = [{ name: 'Navy Silk Kurta', price: '4,200' }, { name: 'Royal Blue Set', price: '4,800' }, { name: 'Teal Embroidered', price: '4,500' }];
+                document.getElementById('detected-lang').textContent = 'Hinglish detected';
+                document.getElementById('current-intent').textContent = 'Shopping > Ethnic > Wedding';
+                document.getElementById('detected-budget').textContent = '₹5,000';
+            } else if (text.toLowerCase().includes('formal')) {
+                response = "Here are some formal shirts that match your preference:";
+                products = [{ name: 'Blue Oxford Shirt', price: '2,400' }, { name: 'Navy Formal', price: '2,800' }];
+                document.getElementById('detected-lang').textContent = 'English';
+                document.getElementById('current-intent').textContent = 'Shopping > Formal > Shirts';
+                document.getElementById('detected-budget').textContent = '₹3,000';
+            } else if (text.toLowerCase().includes('bhai')) {
+                response = "Bilkul! Aapke style ke hisaab se yeh options hain:";
+                products = [{ name: 'Navy Kurta Set', price: '4,200' }, { name: 'Royal Blue Ethnic', price: '4,800' }];
+                document.getElementById('detected-lang').textContent = 'Hindi-English mix';
+                document.getElementById('current-intent').textContent = 'Shopping > Ethnic';
+                document.getElementById('detected-budget').textContent = '₹5,000';
+            }
+            
+            addMessage(response, 'weave', products);
+            addTimelineEvent('Generated ' + (products.length || 0) + ' recommendations');
+        }
+
+        sendBtn.addEventListener('click', () => sendMessage(chatInput.value));
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(chatInput.value); });
+
+        // Scenarios
+        const scenarios = {
+            wedding: [{ delay: 500, message: "I need something for my cousin's wedding next week" }, { delay: 3000, message: "Budget is around 5000, looking for something ethnic" }],
+            rescue: [{ delay: 500, message: "Show me formal shirts" }, { delay: 2500, message: "That blue one looks good, adding to cart" }, { delay: 4000, type: 'system', message: "User inactive..." }, { delay: 6000, type: 'weave', message: "Hey! That navy kurta you liked is selling fast - only 3 left. Should I hold it?" }],
+            hinglish: [{ delay: 500, message: "Bhai kuch kurta dikhao yaar, shaadi hai next week" }, { delay: 3000, message: "Yeh blue wala accha hai, size kya lun?" }],
+            family: [{ delay: 500, message: "I'm shopping for my interview outfit, need my family's opinion" }, { delay: 3000, message: "Can you create a family cart?" }]
+        };
+
+        async function runScenario(name) {
+            const scenario = scenarios[name];
+            if (!scenario) return;
+            
+            chatMessages.innerHTML = `<div class="flex gap-3"><div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#6366F1] to-[#D946EF] flex items-center justify-center text-xs font-bold text-white">W</div><div class="chat-bubble-weave p-4 max-w-[85%]"><p class="text-white mb-3 text-sm">Hi! I'm WEAVE. Try asking me:</p><ul class="text-[#A1A1AA] text-sm space-y-1"><li>• "Show me kurtas for a wedding, budget 5000"</li><li>• "Bhai kuch formal dikhao"</li><li>• Upload an outfit photo</li></ul></div></div>`;
+            memoryTimeline.innerHTML = '<div class="flex items-center gap-2 text-sm"><span class="w-2 h-2 bg-[#3F3F46] rounded-full"></span><span class="text-[#71717A] text-xs">Starting scenario...</span></div>';
+            
+            for (const step of scenario) {
+                await new Promise(r => setTimeout(r, step.delay));
+                if (step.type === 'system') addTimelineEvent(step.message);
+                else if (step.type === 'weave') addMessage(step.message, 'weave');
+                else await sendMessage(step.message, true);
+            }
+        }
+
+        // Agent Tabs
+        function showAgent(name) {
+            document.querySelectorAll('.agent-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.agent === name) tab.classList.add('active');
+            });
+            document.querySelectorAll('.agent-panel').forEach(panel => panel.classList.add('hidden'));
+            document.getElementById('agent-' + name).classList.remove('hidden');
+        }
+
+        // Bridge Demo
+        const bridgeMessages = [
+            { sender: 'user', text: "I need a kurta for my cousin's wedding next week" },
+            { sender: 'weave', text: "Perfect! Here are 3 options in your style. I'd recommend size 40." },
+            { sender: 'user', text: "I like the blue one. Can I try it in store first?" },
+            { sender: 'weave', text: "Absolutely! I've reserved it at Phoenix Mall. Scan QR at entrance. Trial Room 3 ready." }
+        ];
+
+        async function runBridgeDemo() {
+            const customerChat = document.getElementById('bridge-customer-chat');
+            const scanBtn = document.getElementById('scan-qr-btn');
+            
+            customerChat.innerHTML = '';
+            document.getElementById('tablet-waiting').classList.remove('hidden');
+            document.getElementById('tablet-arrived').classList.add('hidden');
+            scanBtn.disabled = true;
+            document.getElementById('connection-line').style.opacity = '0';
+            
+            for (const msg of bridgeMessages) {
+                await new Promise(r => setTimeout(r, 1500));
+                const div = document.createElement('div');
+                div.className = `whatsapp-bubble ${msg.sender}`;
+                div.textContent = msg.text;
+                customerChat.appendChild(div);
+                customerChat.scrollTop = customerChat.scrollHeight;
+            }
+            
+            await new Promise(r => setTimeout(r, 500));
+            scanBtn.disabled = false;
+        }
+
+        function scanQR() {
+            document.getElementById('tablet-waiting').classList.add('hidden');
+            document.getElementById('tablet-arrived').classList.remove('hidden');
+            document.getElementById('connection-line').style.opacity = '1';
+            document.getElementById('scan-qr-btn').disabled = true;
+            document.getElementById('scan-qr-btn').textContent = '✓ Customer Checked In';
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
