@@ -1,75 +1,238 @@
-# WEAVE: Gemini-Powered Commerce Intelligence OS
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Moolsh/Moolsh/main/logo.png" alt="WEAVE Logo" width="150">
+  
+  # 🧵 WEAVE
+  ### India's First Gemini-Native Commerce Intelligence OS
+  
+  [![Gemini 3 Hackathon](https://img.shields.io/badge/Gemini%203-Hackathon%20Submission-6366F1?style=for-the-badge&logo=google-gemini)](https://devpost.com)
+  [![Built with Gemini 2.0](https://img.shields.io/badge/Powered%20by-Gemini%202.0-8B5CF6?style=for-the-badge&logo=google-gemini)](https://ai.google.dev)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-## 1. Executive Summary
+  **We're not just building a platform; we're weaving a soul into the fabric of digital commerce.**
+  
+  [🚀 LIVE DEMO](https://weaveaix.web.app/) • [🎬 Video Walkthrough](https://vimeo.com/1163333819?share=copy&fl=sv&fe=ci#t=0) • [🏆 Devpost Project](https://devpost.com) • [📚 Full Docs](docs/01_introduction.md)
+</div>
 
-**WEAVE is India's first Gemini-native Commerce Intelligence Operating System.** It is a multi-agent orchestration platform designed to solve the foundational problems of Indian e-commerce: context amnesia, language barriers, and the disconnect between digital and physical retail. By leveraging the full capabilities of Gemini 2.0, WEAVE provides a persistent, multilingual, and hyper-personalized commerce experience across all customer touchpoints, including WhatsApp, Web, and in-store kiosks. Our system is projected to deliver a 45,000% ROI for enterprise partners by drastically reducing cart abandonment and returns while significantly increasing average order value.
+---
 
-## 2. The Problem: The ₹52,000 Crore Context Gap
+## 🚨 The ₹52,000 Crore Problem: Commerce Has Lost Its Soul
 
-The Indian retail market suffers from a systemic "context gap," leading to an estimated annual loss of ₹52,000 Crores. This is caused by four primary failures of existing commerce platforms:
+Indian e-commerce is a transactional engine, not a human experience. This disconnect creates a massive, bleeding wound in the market:
+- **Channel Amnesia:** 72% of conversations and carts are abandoned, forgotten by systems that don't remember.
+- **Language Barriers:** 240 million potential customers are excluded, their voices unheard.
+- **Sizing Chaos:** 35% of all fashion apparel is returned, a logistical and environmental nightmare.
+- **Isolated Shopping:** Carts are built for individuals, ignoring the 73% of purchases influenced by family.
 
-*   **Channel Amnesia:** Systems forget conversations and context the moment a user switches from a web browser to a messaging app, causing a 72% cart abandonment rate.
-*   **Language Barriers:** A potential market of 240 million users is excluded by a lack of native language support.
-*   **Sizing Inaccuracy:** Poor recommendations and a lack of personalized understanding lead to a 35% return rate for fashion items, creating logistical friction and customer dissatisfaction.
-*   **Individual-Centric Design:** Platforms are built for single users, ignoring the reality that 73% of Indian purchasing decisions are a collaborative, family affair.
+## 💡 The Solution: WEAVE - A Sentient Commerce OS
 
-## 3. The Solution: A Multi-Agent Orchestration System
+**WEAVE** is a multi-agent, event-driven orchestration system, built natively on Gemini 2.0, that gives commerce a persistent memory, a multilingual voice, and an intelligent heart. It's a single AI brain that unifies WhatsApp, Web, and Physical Stores into one seamless conversation.
 
-WEAVE addresses these challenges with a fleet of seven specialized AI agents, orchestrated in real-time by Gemini 2.0 Flash. This system provides a single, sentient AI brain for the entire commerce journey.
+---
+## 🏗️ Enterprise-Grade Architecture
 
-**The 7 WEAVE Agents:**
-1.  **Discovery Agent:** For intelligent, intent-based multimodal search.
-2.  **Style DNA Agent:** For creating a 512-dimensional "style fingerprint" that enables hyper-personalized recommendations and perfect sizing.
-3.  **Rescue Agent:** For proactively recovering abandoned carts through intelligent, context-aware engagement.
-4.  **Bridge Agent:** For seamlessly connecting a user's digital session to a physical in-store experience.
-5.  **Family Sync Agent:** For enabling collaborative, multi-player shopping carts.
-6.  **Proactive Agent:** For re-engaging users with event-driven, personalized outreach.
-7.  **Voice Agent:** For providing fluent conversational support in 12 Indian languages.
+WEAVE is designed for high-performance, scalability, and resilience, featuring a multi-layered architecture that separates concerns and optimizes data flow.
 
-## 4. Gemini 2.0 Integration: The Core Intelligence
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              USER LAYER                                     │
+│ ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐                   │
+│ │ WhatsApp │   │ Web App  │   │  Store   │   │  Voice   │                   │
+│ │ Business │   │ (Next.js)│   │  Kiosk   │   │   IVR    │                   │
+│ └────┬─────┘   └────┬─────┘   └────┬─────┘   └────┬─────┘                   │
+└──────┼───────────────┼───────────────┼───────────────┼──────────────────────┘
+       └───────────────┴───────────────┴───────────────┘
+                                   │
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           API GATEWAY LAYER                                 │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │                  API Gateway (Cloud Run) + LB + WAF                     │ │
+│ │         • Rate Limiting  • Auth  • Request Routing  • DDoS Protection   │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        ORCHESTRATION LAYER                                  │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │                         GEMINI 2.0 FLASH                                │ │
+│ │      (Intent Classification, Context Injection, Agent Routing)          │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           AGENT LAYER                                       │
+│    [Discovery] [Style DNA] [Rescue] [Bridge] [Family] [Proactive] [Voice]   │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          MEMORY LAYER (Thread Memory™)                      │
+│ ┌─────────────────┐   ┌───────────────────┐   ┌─────────────────┐           │
+│ │   HOT (<5ms)    │   │  SEMANTIC (<50ms) │   │   DEEP (<100ms) │           │
+│ │   (Redis)       │   │  (Vertex AI)      │   │   (Firestore)   │           │
+│ └─────────────────┘   └───────────────────┘   └─────────────────┘           │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         EVENT BUS LAYER                                     │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │                           Cloud Pub/Sub                                 │ │
+│ │ (user.message.received, cart.abandoned, payment.completed, etc.)        │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        INTEGRATION LAYER                                    │
+│       [WhatsApp API] [Razorpay] [Shopify] [Store POS] [Google APIs]         │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+---
 
-WEAVE is built natively on Gemini 2.0, treating it as the foundational layer, not an add-on.
+## 🧠 Why Gemini 2.0 is Our Unfair Advantage
 
-*   **Gemini 2.0 Flash:** Powers the real-time orchestration layer, handling intent detection, agent routing, and natural language response generation at sub-500ms speeds.
-*   **Gemini 2.0 Pro:** Used by the Style DNA Agent for the complex reasoning required to analyze user data and generate sophisticated style profiles.
-*   **2M Token Context Window:** Enables our **Thread Memory™** layer, ensuring WEAVE remembers every interaction across every channel, eliminating context amnesia.
-*   **Multimodality:** Allows users to interact naturally via text, voice (audio), and visual search (images).
-*   **Function Calling:** Empowers agents to take real-world action by interacting with backend systems and external APIs (e.g., checking inventory, processing payments).
+WEAVE's architecture is built to leverage the unique, critical capabilities of Gemini 2.0. No other model offers the combination of features necessary to solve the "Context Amnesia" problem at scale.
 
-## 5. Projected Impact & Business Value
+| Capability               | Why Critical for WEAVE                                | Alternative?                                      |
+|--------------------------|-------------------------------------------------------|---------------------------------------------------|
+| **2M Token Context**     | Remember months of conversations across channels.     | ❌ **None.** This is a generational leap.           |
+| **Native Multimodal**    | User sends voice + photo in a single API call.        | ❌ Requires complex, high-latency, separate pipelines. |
+| **Multilingual Reasoning**| Understand intent in "Hinglish," not just translate.  | ❌ Translation APIs lose critical context and nuance. |
+| **<500ms Latency (Flash)** | Instant, human-like responses on chat.                | ✓ Flash model is optimized for this core use case.     |
+| **Native Function Calling**| A single message can trigger inventory + payment.     | ❌ Requires brittle, custom orchestration logic.      |
+| **Advanced Reasoning (Pro)**| Powers the deep analysis for our Style DNA agent.   | ✓ Pro model provides the necessary cognitive depth.  |
 
-WEAVE is designed to deliver transformative results for retail businesses.
+---
+## 🐍 Core Orchestration Logic
 
-| Metric             | Before WEAVE | After WEAVE (Projected) | Improvement |
-|--------------------|--------------|-------------------------|-------------|
-| Cart Abandonment   | 72%          | 38%                     | **↓47%**    |
-| Returns (Sizing)   | 35%          | 22%                     | **↓37%**    |
-| Avg. Order Value   | ₹2,800       | ₹3,640                  | **↑30%**    |
+Our system is built on a clean, testable, and scalable Python backend, with a central orchestrator coordinating agents and memory.
 
-These improvements culminate in a projected **45,000% ROI for enterprise partners**, making WEAVE a powerful engine for growth and customer loyalty.
+### The Gemini Orchestrator
+```python
+class GeminiOrchestrator:
+    """
+    Central AI brain that coordinates all WEAVE operations.
+    
+    Responsibilities:
+    - Intent classification from multimodal input
+    - Context assembly from 3-tier memory
+    - Agent selection and routing
+    - Response generation in user's language
+    - Function call orchestration
+    """
+    async def process(self, user_input: UserInput) -> Response:
+        # 1. Detect language and intent with Gemini
+        intent = await self.classify_intent(user_input)
+        
+        # 2. Build context from Thread Memory™
+        context = await self.memory.build_context(user_id=user_input.user_id, intent=intent)
+        
+        # 3. Route to the appropriate specialized agent
+        agent = self.agents.select(intent)
+        
+        # 4. Generate a response using the agent's logic and Gemini's capabilities
+        response = await agent.execute(user_input=user_input, context=context)
+        
+        # 5. Persist the new interaction back into memory
+        await self.memory.update(user_input, response)
+        
+        return response
+```
 
-## 6. Technology Stack
+### The Agent Base Class
+All our agents inherit from a base class that provides common functionality for interacting with Gemini.
+```python
+class BaseAgent:
+    """
+    Base class for all WEAVE agents. Each agent has:
+    - A specialized system prompt defining its personality and goals.
+    - Access to a specific set of functions (tools).
+    - Custom logic for handling its domain.
+    """
+    def __init__(self, name: str, system_prompt: str, functions: List[str]):
+        self.name = name
+        self.system_prompt = system_prompt
+        self.functions = functions
+        self.gemini_client = WeaveGeminiClient()
 
-*   **AI & Orchestration:** Google Gemini 2.0 (Flash & Pro), Vertex AI
-*   **Thread Memory™:** Redis Stack (Hot), Vertex AI Vector Search (Semantic), Firestore (Deep)
-*   **Backend:** Python, FastAPI, Cloud Run
-*   **Frontend:** Next.js, Tailwind CSS
-*   **Channels:** WhatsApp Business API
-*   **Events & Messaging:** Cloud Pub/Sub
+    async def execute(self, user_input: UserInput, context: Context) -> Response:
+        # Build a rich, contextual prompt for Gemini
+        prompt = self.build_prompt(user_input, context)
+        
+        # Call Gemini with the agent's specific system prompt and tools
+        response = await self.gemini_client.generate(
+            model="gemini-2.0-flash",
+            system_prompt=self.system_prompt,
+            prompt=prompt,
+            functions=self.functions
+        )
+        
+        # Process response, handle function calls, and format output
+        return self.format_response(response)
+```
 
-## 7. Team WEAVE
+---
 
-WEAVE is being built by a passionate team of six developers from India, each with a distinct area of expertise, united by the vision to revolutionize commerce.
+## 🚀 Getting Started
 
-*   **princetheprogrammerbtw** (R&D Lead / Lead Dev)
-*   **Harish K** (Developer / Project Admin)
-*   **Jai Ganesh** (AI/ML Engineer)
-*   **Bivin Kanth** (UI/UX Developer)
-*   **Mukilash V K** (Backend Engineer)
-*   **Rithic Hitesh** (Integration & QA)
+### Prerequisites
+- Python 3.11+ & Poetry
+- Node.js 18+ & PNPM
+- Google Cloud Account & Gemini API Key
+- Docker for local services (Redis)
 
-## 8. Links
+### Installation & Setup
 
-*   **Live Demo:** [https://weave-demo.vercel.app](https://weave-demo.vercel.app)
-*   **Video Walkthrough:** [YouTube URL]
-*   **Code Repository:** [GitHub URL]
+1.  **Clone the repository:**
+    ```bash
+    git clone https://codeberg.org/princetheprogrammerbtw/WeaveAI.git
+    cd weave-commerce-os
+    ```
+
+2.  **Configure Environment:**
+    ```bash
+    cp .env.example .env
+    # Edit .env with your API keys (GEMINI_API_KEY, etc.)
+    ```
+
+3.  **Launch Backend (FastAPI):**
+    ```bash
+    cd backend
+    poetry install
+    poetry run uvicorn main:app --reload
+    ```
+
+4.  **Launch Frontend (Next.js):**
+    ```bash
+    cd ../frontend
+    pnpm install
+    pnpm dev
+    ```
+
+---
+
+## 📚 Full Documentation
+
+This project is documented extensively. For deep dives into our architecture, agent design, memory systems, and API specifications, please explore the `/docs` directory or start with the [Introduction](docs/01_introduction.md).
+
+---
+
+## 👥 The Team: Team WEAVE
+
+Meet the architects, builders, and visionaries behind WEAVE.
+
+| Member                   | Role                     |
+|--------------------------|--------------------------|
+| **princetheprogrammerbtw** | 👑 R&D Lead & Lead Dev   |
+| **Harish K**               | 🛠️ Developer & Admin     |
+| **Jai Ganesh**             | 🧠 AI/ML Engineer        |
+| **Bivin Kanth**            | 🎨 UI/UX Developer       |
+| **Mukilash V K**           | 🔧 Backend Engineer      |
+| **Rithic Hitesh**          | 📊 Integration & QA      |
+
+<div align="center">
+  Built with ❤️ for the Gemini 3 Hackathon
+</div>
