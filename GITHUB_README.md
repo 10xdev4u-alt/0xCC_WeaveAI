@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Moolsh/Moolsh/main/logo.png" alt="WEAVE Logo" width="150">
+  <img src="pics/logo.png" alt="WEAVE Logo" width="150">
   
   # 🧵 WEAVE
   ### India's First Gemini-Native Commerce Intelligence OS
