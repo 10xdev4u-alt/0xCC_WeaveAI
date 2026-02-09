@@ -1,264 +1,207 @@
-# 🧵 WEAVE - Commerce Intelligence OS
-
 <div align="center">
-  <img src="assets/weave-logo.png" alt="WEAVE Logo" width="120">
+  <img src="https://raw.githubusercontent.com/Moolsh/Moolsh/main/logo.png" alt="WEAVE Logo" width="150">
   
-  **India's First Gemini-Powered Commerce Operating System**
+  # 🧵 WEAVE
+  ### India's First Gemini-Native Commerce Intelligence OS
   
-  [![Gemini 3 Hackathon](https://img.shields.io/badge/Gemini%203-Hackathon-6366F1?style=for-the-badge)](https://devpost.com)
-  [![Built with Gemini](https://img.shields.io/badge/Built%20with-Gemini%202.0-8B5CF6?style=for-the-badge)](https://ai.google.dev)
-  [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+  [![Gemini 3 Hackathon](https://img.shields.io/badge/Gemini%203-Hackathon%20Submission-6366F1?style=for-the-badge&logo=google-gemini)](https://devpost.com)
+  [![Built with Gemini 2.0](https://img.shields.io/badge/Powered%20by-Gemini%202.0-8B5CF6?style=for-the-badge&logo=google-gemini)](https://ai.google.dev)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+
+  **We're not just building a platform; we're weaving a soul into the fabric of digital commerce.**
   
-  [Live Demo](https://weave-demo.vercel.app) • [Video](https://youtube.com) • [Devpost](https://devpost.com)
+  [Live Demo](https://weave-demo.vercel.app) • [Video Walkthrough](https://youtube.com) • [Devpost Project](https://devpost.com)
 </div>
 
 ---
 
-## 🎯 What is WEAVE?
+## 🚨 The ₹52,000 Crore Problem: Commerce Has Lost Its Soul
 
-WEAVE is a **Multi-Agent Commerce Orchestration System** that solves the ₹52,000 Crore "Context Amnesia" problem in Indian retail.
+Indian e-commerce is a transactional engine, not a human experience. This disconnect creates a massive, bleeding wound in the market:
+- **Channel Amnesia:** 72% of conversations and carts are abandoned, forgotten by systems that don't remember.
+- **Language Barriers:** 240 million potential customers are excluded, their voices unheard.
+- **Sizing Chaos:** 35% of all fashion apparel is returned, a logistical and environmental nightmare.
+- **Isolated Shopping:** Carts are built for individuals, ignoring the 73% of purchases influenced by family.
 
-### The Problem
-- **72%** cart abandonment rate
-- **35%** returns due to sizing issues  
-- **240M** users excluded by language barriers
-- **73%** family purchase decisions ignored
+## 💡 The Solution: WEAVE - A Sentient Commerce OS
 
-### The Solution
-One AI brain that:
-- ✅ Remembers every conversation across channels
-- ✅ Speaks 12 Indian languages (including Hinglish)
-- ✅ Predicts perfect sizing with Style DNA™
-- ✅ Bridges digital browsing to in-store experience
-- ✅ Enables family-based collaborative shopping
+**WEAVE** is a multi-agent orchestration system, built natively on Gemini 2.0, that gives commerce a persistent memory, a multilingual voice, and an intelligent heart. It's a single AI brain that unifies WhatsApp, Web, and Physical Stores into one seamless conversation.
+
+<div align="center">
+  <img src="docs/screenshots/hero.png" width="80%">
+</div>
 
 ---
 
-## 🧠 Gemini Integration
+## 🧠 The Weavers: Our 7 Gemini-Powered AI Agents
 
-WEAVE is built **natively on Gemini 2.0**:
+WEAVE's intelligence is distributed across seven specialized agents, orchestrated by Gemini 2.0 Flash in real-time.
 
-| Feature | Gemini Capability Used |
-|---------|----------------------|
-| Real-time chat | Gemini 2.0 Flash (<500ms) |
-| Style analysis | Gemini 2.0 Pro reasoning |
-| Voice understanding | Multimodal audio processing |
-| Image matching | Vision + text in single call |
-| Context memory | 2M token context window |
-| Actions | Native function calling |
-| Trends | Search grounding |
+| Agent | Codename | Core Function |
+|-------|----------|---------------|
+| **Discovery Agent** | `The Seeker` | Goes beyond keyword search to understand intent, context, and emotion. Finds what you mean, not just what you type. |
+| **Style DNA Agent** | `The Stylist` | Creates a 512-dimensional "style fingerprint" for each user, powered by Gemini 2.0 Pro's deep reasoning. It predicts taste and perfect sizing. |
+| **Rescue Agent** | `The Guardian` | Monitors conversations for signs of abandonment and intelligently intervenes with context-aware messages to recover the sale. |
+| **Bridge Agent** | `The Courier` | Seamlessly transports a user's digital session (cart, Style DNA, chat history) to an in-store tablet for a true omnichannel experience. |
+| **Family Sync Agent** | `The Elder` | Facilitates collaborative shopping by creating shared carts and preference profiles for group decision-making. |
+| **Proactive Agent** | `The Herald` | An event-driven agent that re-engages users with hyper-personalized triggers—like a back-in-stock notification for an item they viewed weeks ago. |
+| **Voice Agent** | `The Linguist` | Leverages Gemini's multimodal capabilities to understand and converse fluently in 12 Indian languages, including idiomatic Hinglish. |
 
-### Code Example
+---
+
+## 🚀 The Gemini Native Architecture
+
+WEAVE was not built *with* AI; it was built *for* AI. Gemini is not a feature; it is the foundation.
+
+```mermaid
+graph TD
+    subgraph User Touchpoints
+        A[📱 WhatsApp]
+        B[💻 Web App]
+        C[🏪 Store Kiosk]
+    end
+
+    subgraph Gemini Orchestration Layer
+        D(Gemini 2.0 Flash);
+        D -- "Intent & Routing" --> E;
+        D -- "Real-time Response" --> A & B & C;
+    end
+
+    subgraph 7 Specialized Agents
+        E{The Weavers};
+        E -- "Complex Reasoning" --> F(Gemini 2.0 Pro for Style DNA);
+    end
+
+    subgraph Thread Memory™ Layer
+        G[🔥 Redis - Hot Context];
+        H[🧠 Vertex AI Vectors - Semantic Memory];
+        I[🗄️ Firestore - Deep History];
+    end
+    
+    subgraph Integrations & Tools
+        J[Shopify API]
+        K[Razorpay API]
+        L[Store POS API]
+    end
+
+    A & B & C --> D;
+    E --> G & H & I;
+    E -- "Function Calling" --> J & K & L;
+```
+
+### Code Example: The Heart of the `Discovery Agent`
+
+This demonstrates how we combine context from our **Thread Memory™** layer with a user's query and Gemini's native function calling to create a truly intelligent response.
 
 ```python
+# backend/agents/discovery_agent.py (Illustrative)
 from google import genai
-from google.genai import types
+from ..integrations import gemini_client, available_tools
+from ..memory import thread_memory_manager
 
-client = genai.Client()
-
-def discovery_agent(user_input: dict, user_context: dict):
-    response = client.models.generate_content(
+async def handle_query(user_id: str, user_input: dict):
+    """
+    Handles a new user query using the Discovery Agent.
+    """
+    # 1. Retrieve deep context from our Thread Memory™ layer
+    user_context = await thread_memory_manager.retrieve_context(user_id)
+    
+    # 2. Formulate a rich prompt for Gemini
+    prompt = f"""
+    You are WEAVE's 'Seeker' agent. A user's context is provided below.
+    Your goal is to understand their true intent and find the perfect product.
+    
+    ## User Context:
+    - Style DNA (Vector Profile): {user_context.style_dna_summary}
+    - Language: {user_context.language}
+    - Recent History: {user_context.recent_interactions}
+    
+    ## User's Live Query:
+    - Message: "{user_input.get('message')}"
+    """
+    
+    # 3. Generate content using Gemini, providing our toolkit
+    response = gemini_client.generate_content(
         model="gemini-2.0-flash",
-        contents=[
-            f"""You are WEAVE, a shopping assistant for Indian fashion.
-            
-            User Context:
-            - Style DNA: {user_context['style_dna']}
-            - Language: {user_context['language']}
-            - Past purchases: {user_context['history']}
-            
-            User Query: {user_input['message']}
-            
-            Respond naturally in the user's language.
-            Include personalized size recommendations.
-            """,
-            user_input.get('image'),  # Optional image
-            user_input.get('audio'),  # Optional voice
-        ],
-        config=types.GenerateContentConfig(
-            tools=[search_catalog, check_inventory, reserve_item],
-            temperature=0.7
-        )
+        prompt=prompt,
+        image=user_input.get('image'), # Natively handle multimodal input
+        tools=available_tools # Expose our backend functions to Gemini
     )
-    return response
+    
+    # 4. Process Gemini's response (could be text or a function call)
+    # ... logic to execute tool calls or format response ...
+    
+    return processed_response
 ```
 
 ---
 
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────┐
-│           USER TOUCHPOINTS                       │
-│  WhatsApp  │  Web App  │  Store Kiosk           │
-└──────────────────┬──────────────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────────────┐
-│         GEMINI ORCHESTRATION LAYER               │
-│  ┌────────────────────────────────────────────┐ │
-│  │         Gemini 2.0 Flash                   │ │
-│  │  Intent → Agent Selection → Response       │ │
-│  └────────────────────────────────────────────┘ │
-└──────────────────┬──────────────────────────────┘
-                   │
-┌──────────────────┴──────────────────────────────┐
-│              7 AGENTS                            │
-│  Discovery │ Style DNA │ Rescue │ Bridge        │
-│  Family │ Proactive │ Voice                     │
-└──────────────────┬──────────────────────────────┘
-                   │
-┌──────────────────┴──────────────────────────────┐
-│          THREAD MEMORY™                          │
-│  Redis (Hot) │ Vectors │ Firestore (Deep)       │
-└─────────────────────────────────────────────────┘
-```
-
----
-
-## 🚀 Quick Start
+## 🛠️ Getting Started
 
 ### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- Google Cloud account
-- Gemini API key
+- Python 3.11+ & Poetry
+- Node.js 18+ & PNPM
+- Google Cloud Account & Gemini API Key
+- Docker for local services (Redis)
 
-### Installation
+### Installation & Setup
 
-```bash
-# Clone repository
-git clone https://github.com/[username]/weave-commerce-os.git
-cd weave-commerce-os
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/[your-username]/weave-commerce-os.git
+    cd weave-commerce-os
+    ```
 
-# Backend setup
-cd backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
+2.  **Configure Environment:**
+    ```bash
+    cp .env.example .env
+    # Edit .env with your API keys (GEMINI_API_KEY, etc.)
+    ```
 
-# Set environment variables
-cp .env.example .env
-# Add your GEMINI_API_KEY to .env
+3.  **Launch Backend (FastAPI):**
+    ```bash
+    cd backend
+    poetry install
+    poetry run uvicorn main:app --reload
+    ```
+    The backend will be live at `http://localhost:8000`.
 
-# Run backend
-uvicorn main:app --reload
-
-# Frontend setup (new terminal)
-cd ../frontend
-npm install
-npm run dev
-```
-
-### Environment Variables
-
-```env
-GEMINI_API_KEY=your_api_key_here
-REDIS_URL=redis://localhost:6379
-FIRESTORE_PROJECT_ID=your_project_id
-WHATSAPP_TOKEN=your_whatsapp_token
-```
+4.  **Launch Frontend (Next.js):**
+    ```bash
+    cd ../frontend
+    pnpm install
+    pnpm dev
+    ```
+    The frontend will be live at `http://localhost:3000`.
 
 ---
 
-## 📁 Project Structure
+## 📊 The WEAVE Effect: Revolutionizing Retail Metrics
 
-```
-weave-commerce-os/
-├── backend/
-│   ├── agents/
-│   │   ├── discovery_agent.py
-│   │   ├── style_dna_agent.py
-│   │   ├── rescue_agent.py
-│   │   ├── bridge_agent.py
-│   │   ├── family_agent.py
-│   │   ├── proactive_agent.py
-│   │   └── voice_agent.py
-│   ├── memory/
-│   │   ├── redis_client.py
-│   │   ├── vector_store.py
-│   │   └── firestore_client.py
-│   ├── integrations/
-│   │   ├── gemini_client.py
-│   │   └── whatsapp_webhook.py
-│   ├── main.py
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── styles/
-│   ├── package.json
-│   └── tailwind.config.js
-├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── GEMINI_INTEGRATION.md
-│   └── API.md
-├── .env.example
-├── docker-compose.yml
-└── README.md
-```
+| Metric             | Before WEAVE | After WEAVE (Projected) | Improvement |
+|--------------------|--------------|-------------------------|-------------|
+| Cart Abandonment   | 72%          | 38%                     | **↓47%**    |
+| Returns (Sizing)   | 35%          | 22%                     | **↓37%**    |
+| Avg. Order Value   | ₹2,800       | ₹3,640                  | **↑30%**    |
+| Tier 2/3 Engagement| 18%          | 38%                     | **↑111%**   |
+
+**This translates to a projected 45,000% ROI for our enterprise partners.**
 
 ---
 
-## 🎬 Demo
+## 👥 The Team: Team WEAVE
 
-### Live Demo
-🔗 **[weave-demo.vercel.app](https://weave-demo.vercel.app)**
+Meet the architects, builders, and visionaries behind WEAVE.
 
-### Video Walkthrough
-🎥 **[Watch on YouTube](https://youtube.com)** (3 minutes)
-
-### Screenshots
+| Member                   | Role                     | Specialty                  |
+|--------------------------|--------------------------|----------------------------|
+| **princetheprogrammerbtw** | 👑 R&D Lead & Lead Dev   | Architecture, Innovation   |
+| **Harish K**               | 🛠️ Developer & Admin     | Project Management, Dev Ops|
+| **Jai Ganesh**             | 🧠 AI/ML Engineer        | Gemini Integration, Agents |
+| **Bivin Kanth**            | 🎨 UI/UX Developer       | Design Systems, Frontend   |
+| **Mukilash V K**           | 🔧 Backend Engineer      | APIs, Memory Systems       |
+| **Rithic Hitesh**          | 📊 Integration & QA      | Testing, Documentation     |
 
 <div align="center">
-  <img src="docs/screenshots/hero.png" width="45%">
-  <img src="docs/screenshots/chat.png" width="45%">
-</div>
-
----
-
-## 📊 Impact Metrics
-
-| Metric | Before | After WEAVE | Improvement |
-|--------|--------|-------------|-------------|
-| Cart Abandonment | 72% | 38% | ↓47% |
-| Returns (Sizing) | 35% | 22% | ↓37% |
-| Avg Order Value | ₹2,800 | ₹3,640 | ↑30% |
-| Tier 2/3 Engagement | 18% | 38% | ↑111% |
-
-**Projected ROI for Enterprise:** 45,000%
-
----
-
-## 👥 Team
-
-| Name | Role | Links |
-|------|------|-------|
-| [Name] | Full Stack Developer | [GitHub](https://github.com) |
-| [Name] | AI/ML Engineer | [LinkedIn](https://linkedin.com) |
-| [Name] | UI/UX Designer | [Portfolio](https://example.com) |
-
----
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
----
-
-## 🙏 Acknowledgments
-
-- Google DeepMind for Gemini 2.0
-- Devpost for organizing the hackathon
-- The open-source community
-
----
-
-<div align="center">
-  <b>Built with ❤️ for the Gemini 3 Hackathon</b>
-  <br><br>
-  <a href="https://weave-demo.vercel.app">Try Demo</a> •
-  <a href="https://youtube.com">Watch Video</a> •
-  <a href="https://devpost.com">Devpost</a>
+  **Built with ❤️ for the Gemini 3 Hackathon**
 </div>
