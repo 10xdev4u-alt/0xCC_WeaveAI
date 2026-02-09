@@ -1,52 +1,64 @@
-# WEAVE Architecture Diagram Description
+# WEAVE Architecture: The Anatomy of a Sentient System
 
-This document details the architectural components and data flow within the WEAVE Commerce Intelligence OS. The system is designed as a multi-layered, agent-based orchestration platform, leveraging Gemini 2.0 for intelligent commerce interactions across various user touchpoints.
+This document provides a narrative description of the WEAVE architecture. Our system is not a simple collection of services; it's a purposefully designed, multi-layered ecosystem built to support a continuous, intelligent conversation with the user.
 
-## 1. User Touchpoints
+---
 
-These are the primary interfaces through which end-users interact with the WEAVE system. The architecture is designed to be channel-agnostic, providing a consistent experience across diverse platforms.
+### The Core Philosophy: "A Conversation, Not a Transaction"
 
-*   **WhatsApp:** Integrates with the WhatsApp Business API to enable conversational commerce, proactive outreach, and customer support directly within the user's preferred messaging app.
-*   **Web App:** A Next.js-based frontend providing a rich, interactive web experience for browsing products, managing carts, and engaging with the AI agents.
-*   **Store Kiosk:** Physical in-store touchpoints (e.g., tablets or smart displays) that bridge the digital and physical shopping experiences, powered by the same backend intelligence.
+The architecture is designed to fulfill one core promise: a user has a *single, unbroken conversation* with WEAVE, regardless of whether they are on WhatsApp, a web browser, or an in-store tablet. This is achieved through three foundational pillars: **Real-time Orchestration**, **Specialized Intelligence**, and **Persistent Memory**.
 
-## 2. Gemini Orchestration Layer
+---
 
-This is the intelligent core of WEAVE, powered by Google's Gemini 2.0 Flash model. It acts as a central router and natural language understanding engine, directing user requests to the appropriate specialized agents.
+### The Journey of a Single Query
 
-*   **Gemini 2.0 Flash:** Chosen for its real-time performance (<500ms response times), it handles:
-    *   **Intent Detection:** Analyzing user input to understand their goal (e.g., "browse products," "check order status," "get style advice").
-    *   **Language Understanding:** Processing natural language queries, including Hinglish and various Indian languages, to extract key entities and context.
-    *   **Agent Routing:** Based on the detected intent, it intelligently routes the request to one of the 7 specialized AI agents.
-    *   **Response Generation:** Synthesizing natural, context-aware, and personalized responses back to the user, often incorporating outputs from the agents.
+Let's trace a user's query—"Bhai, do you have that blue kurta I was looking at yesterday?"—as it travels through the WEAVE nervous system.
 
-## 3. Seven Specialized Agents
+#### **1. Entry Point: The User Touchpoints**
 
-WEAVE employs a fleet of highly specialized AI agents, each designed to handle a specific aspect of the commerce journey. These agents embody the core business logic and AI capabilities of the platform.
+The query originates from one of our channel-agnostic frontends:
+*   **WhatsApp:** The most accessible entry point for millions.
+*   **Web App (Next.js):** A rich, interactive visual interface.
+*   **Store Kiosk:** A tablet that bridges the physical-digital divide.
 
-*   **Discovery Agent:** Facilitates multimodal product search (text, voice, image), helping users find relevant products efficiently.
-*   **Style DNA Agent:** Analyzes user preferences, past purchases, and expressed interests to build a 512-dimensional style profile, providing personalized recommendations and accurate sizing predictions. This agent heavily utilizes Gemini 2.0 Pro for complex reasoning.
-*   **Rescue Agent:** Monitors user behavior for signs of cart abandonment and proactively intervenes with personalized offers, reminders, or assistance to recover lost sales.
-*   **Bridge Agent:** Seamlessly connects online browsing with in-store experiences, enabling features like in-store pickup, associate briefing, and personalized recommendations during physical visits.
-*   **Family Sync Agent:** Supports collaborative, multi-player shopping experiences, allowing families or groups to share carts and preferences.
-*   **Proactive Agent:** Triggers personalized outreach based on various events (e.g., new arrivals, sales, low stock alerts for desired items), driving re-engagement and sales.
-*   **Voice Agent:** Provides robust support for 12 Indian languages, enabling voice-based interactions and ensuring inclusivity for a diverse user base.
+Regardless of the source, the query is securely transmitted to our central nervous system: the Gemini Orchestration Layer.
 
-## 4. Thread Memory™ Layer
+#### **2. The Brain: Gemini Orchestration Layer**
 
-This multi-tiered memory system ensures cross-session memory persistence and contextual understanding for every user interaction, solving the "Context Amnesia" problem.
+This is the intelligent core where every request is processed in real-time.
+*   **Powered by Gemini 2.0 Flash:** We use Flash for its sub-500ms latency, which is critical for a conversational flow that feels natural and human.
+*   **Initial Analysis:** Gemini 2.0 Flash performs three tasks simultaneously:
+    1.  **Language Detection:** Identifies the language as "Hinglish."
+    2.  **Intent Recognition:** Understands the core intent is not just "search" but "retrieve a previously viewed item" (`lookup_history`).
+    3.  **Entity Extraction:** Extracts key entities: `item: "kurta"`, `color: "blue"`, `timeframe: "yesterday"`.
+*   **Agent Routing:** Based on the complex intent (`lookup_history` + `search`), the orchestrator knows this is a job for **The Seeker (Discovery Agent)**. The request, now enriched with structured data, is dispatched to the appropriate agent.
 
-*   **Redis (Hot Memory):** Utilized for fast, in-memory caching of short-term conversational context, user session data, and frequently accessed information to ensure real-time responsiveness.
-*   **Vertex AI Vector Search (Contextual Memory):** Stores embeddings of past conversations, style DNA profiles, and product interactions. Enables semantic search and retrieval of highly relevant context for agents.
-*   **Firestore (Deep Memory):** Serves as the persistent long-term storage for comprehensive user profiles, purchase history, style DNA, preferences, and agent interaction logs. Provides a durable, scalable record of every customer journey.
+#### **3. The Specialists: The 7 AI Agents (The Weavers)**
 
-## 5. Integrations
+The Seeker agent receives the routed request. Its job is not just to search, but to understand the user's *unspoken context*.
 
-WEAVE connects with various external systems to provide a full-fledged commerce solution.
+*   **Contextual Invocation:** Before acting, the Seeker queries the **Thread Memory™ Layer**.
+*   **Memory Retrieval:** It fetches the user's profile, including their `Style DNA` (from The Stylist), and their recent interaction history from yesterday.
+*   **Gemini-Powered Action:** The Seeker now has the full picture. It uses **Gemini's Function Calling** capability to execute a precise, memory-augmented query against our backend: `search_catalog(user_id, item="kurta", color="blue", viewed_since="24h_ago")`.
 
-*   **WhatsApp API:** Powers the WhatsApp touchpoint for sending and receiving messages.
-*   **Razorpay:** Handles payment processing, enabling secure and diverse payment options for users.
-*   **Shopify:** Integrates with existing e-commerce platforms for inventory management, product catalog synchronization, and order fulfillment.
-*   **Store POS (Point of Sale):** Connects with in-store systems to facilitate real-time inventory updates, associate assistance, and seamless digital-to-physical handoffs.
+#### **4. The Soul: Thread Memory™ Layer**
 
-This layered architecture ensures scalability, modularity, and the ability to continuously evolve the WEAVE platform with new agents and integrations while maintaining a rich, personalized user experience.
+This is what makes WEAVE sentient. It's a multi-tiered memory system that ensures no context is ever lost.
+*   **🔥 Redis (Hot Memory):** Holds the immediate conversational context (the last 5-10 messages) for millisecond-speed retrieval during rapid back-and-forth exchanges.
+*   **🧠 Vertex AI Vector Search (Semantic Memory):** Contains the user's **Style DNA** and vector embeddings of all past interactions. This allows the agent to know *which* blue kurta the user likely meant, based on their aesthetic preferences.
+*   **🗄️ Firestore (Deep Memory):** The system of record. It stores the complete, immutable log of every interaction, purchase, and preference for deep historical analysis and long-term personalization.
+
+#### **5. The Hands: Integrations & Tools**
+
+The `search_catalog` function is one of many "tools" available to our agents. This layer connects WEAVE's intelligence to the real world.
+*   **Internal Tools:** `search_catalog`, `check_inventory`, `get_user_profile`.
+*   **External APIs:**
+    *   **Shopify:** To get real-time product information.
+    *   **Razorpay:** To initiate a payment.
+    *   **Store POS:** To reserve an item for in-store trial.
+
+#### **6. The Response: Completing the Loop**
+
+*   **Action Result:** The `search_catalog` function returns the specific blue kurta the user viewed.
+*   **Final Generation:** This result is passed back to the **Gemini Orchestration Layer**. Gemini 2.0 Flash synthesizes the final, natural language response: "Yes, PrinceTheProgrammer! You mean this one? I can have it held for you at the Jubilee Hills store if you'd like."
+*   **Delivery:** The response is delivered back to the user on their original touchpoint (e.g., WhatsApp). The entire journey, from query to response, feels like a single, intelligent thought. The conversation continues, its memory fully intact.
