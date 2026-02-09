@@ -1,45 +1,61 @@
-# WEAVE Backend Code Structure Details
+# WEAVE Backend Architecture: A Blueprint for AI-Native Systems
 
-This document provides a detailed breakdown of the WEAVE backend architecture, explaining the purpose and responsibilities of each directory and file. The backend is primarily built with Python and FastAPI, designed for scalability and modularity to support the multi-agent orchestration system.
+This document outlines the engineering philosophy and structure of the WEAVE backend. Our approach is rooted in principles of modularity, scalability, and testability, ensuring we can build, maintain, and evolve a complex, AI-driven system with clarity and confidence.
 
-## Root Level (`weave-commerce-os/`)
+---
 
-*   **`backend/`**: Contains all server-side logic, API endpoints, agent implementations, and data integration services.
-*   **`frontend/`**: Houses the Next.js application, including UI components, pages, and client-side logic.
-*   **`docs/`**: Documentation folder, potentially containing more in-depth explanations, API specifications, and architectural insights.
-*   **`.env.example`**: A template file for environment variables, guiding developers on necessary configurations.
-*   **`docker-compose.yml`**: Defines the services, networks, and volumes for running the entire WEAVE application using Docker.
-*   **`README.md`**: The main project README, as detailed in `GITHUB_README.md`.
+## Engineering Philosophy: The "Clean Core" Principle
 
-## Backend Directory (`weave-commerce-os/backend/`)
+The backend is designed around a **"Clean Core"** principle. The core business logic and AI orchestration are completely decoupled from the delivery mechanisms (like FastAPI) and external services (like Redis or Firestore). This separation of concerns is critical for long-term maintainability and agility.
 
-This directory is the heart of WEAVE's intelligent operations.
+*   **Core Logic (`agents/`, `memory/`):** This is the "brain." It knows nothing about HTTP requests or specific database technologies. It deals only in pure Python objects and business rules.
+*   **Infrastructure (`integrations/`, `main.py`):** This is the "scaffolding." It handles web traffic, talks to databases, and manages external API calls. It adapts data from the outside world into a format the core can understand.
 
-*   **`agents/`**: This subdirectory contains the implementation of each of the 7 specialized AI agents. Each agent is designed to handle specific commerce-related tasks.
-    *   **`discovery_agent.py`**: Manages multimodal product search (text, voice, image). It interacts with the `gemini_client` for natural language processing and the `memory` layer for catalog lookup.
-    *   **`style_dna_agent.py`**: Builds and utilizes user style profiles (Style DNA). This agent performs complex reasoning using Gemini 2.0 Pro and stores/retrieves data from `memory/firestore_client` and `memory/vector_store`.
-    *   **`rescue_agent.py`**: Implements logic for identifying and acting on cart abandonment scenarios. It triggers proactive messages via `integrations/whatsapp_webhook` and may interact with inventory systems.
-    *   **`bridge_agent.py`**: Facilitates the digital-to-physical commerce experience, syncing online user data to in-store touchpoints (e.g., POS or associate tablets).
-    *   **`family_agent.py`**: Manages collaborative shopping experiences, allowing multiple users to contribute to a shared cart or preference profile.
-    *   **`proactive_agent.py`**: Handles trigger-based outreach and personalized notifications (e.g., new arrivals, sales, low stock alerts) to re-engage users.
-    *   **`voice_agent.py`**: Dedicated to processing and responding to voice inputs, leveraging Gemini's multimodal audio capabilities and integrating with external voice recognition services if needed.
+---
 
-*   **`memory/`**: This module is responsible for WEAVE's multi-tiered Thread Memory™ system.
-    *   **`redis_client.py`**: Manages connections and operations with Redis Stack, used for hot (short-term) memory, session management, and fast caching of conversational context.
-    *   **`vector_store.py`**: Interfaces with Vertex AI Vector Search or a similar vector database. It handles the storage and retrieval of vector embeddings for contextual memory, enabling semantic search over past interactions.
-    *   **`firestore_client.py`**: Manages interactions with Google Cloud Firestore, serving as the deep (long-term) memory for persistent user profiles, purchase history, Style DNA, and comprehensive interaction logs.
+## Directory Breakdown: From Entrypoint to Core
 
-*   **`integrations/`**: This module handles all external API communications and third-party service integrations.
-    *   **`gemini_client.py`**: The core client for interacting with the Google Gemini API. It abstracts model selection (Flash vs. Pro), content formatting for multimodal inputs, function tool declaration, and response parsing. It's crucial for all agent intelligence.
-    *   **`whatsapp_webhook.py`**: Manages incoming messages from the WhatsApp Business API webhook and sends outgoing messages. It parses WhatsApp payloads and formats responses for the platform.
-    *   *(Additional files for other integrations like Razorpay, Shopify, Store POS would reside here)*
+### `main.py`: The Central Nervous System
 
-*   **`main.py`**: The main entry point for the FastAPI application.
-    *   It initializes the FastAPI app instance.
-    *   Defines API routes (e.g., `/chat`, `/webhook/whatsapp`, `/health`).
-    *   Coordinates the flow of requests: receives user input, passes it to the Gemini Orchestration Layer (via `gemini_client` and agent logic), retrieves responses, and returns them to the frontend or external channels.
-    *   Sets up dependency injection and middleware.
+This is the primary entry point for the FastAPI application, but its role is intentionally limited. It acts as a lightweight controller, responsible for:
 
-*   **`requirements.txt`**: Lists all Python dependencies required for the backend, enabling easy environment setup.
+1.  **Receiving Requests:** Defining API endpoints (`/chat`, `/webhook/whatsapp`) and parsing incoming data.
+2.  **Delegating to the Core:** Immediately passing the request data to the appropriate agent or service in the core application. It does *not* contain any business logic itself.
+3.  **Returning Responses:** Taking the pure Python response from the core and serializing it into a JSON response for the client.
 
-This structured approach ensures that WEAVE's backend is maintainable, scalable, and allows for independent development and testing of each specialized agent and integration.
+**Why this design?** It makes our core logic completely independent of the web framework. We could switch from FastAPI to another framework with minimal changes to the actual business intelligence.
+
+### `agents/`: The Specialized Cognitive Modules
+
+This directory is the heart of WEAVE's intelligence. Each file represents a "specialized cognitive module," an independent domain expert.
+
+*   **`discovery_agent.py`, `style_dna_agent.py`, etc.:**
+    *   **Defined Inputs/Outputs:** Each agent has a clear "contract"—it accepts specific data structures and returns a predictable result or action.
+    *   **Dependency Inversion:** Agents do not directly instantiate their dependencies (like memory clients or Gemini clients). Instead, these are *injected* into them. This makes testing trivial; we can inject a "mock" memory client to test an agent in complete isolation.
+    *   **Focused Responsibility:** The `StyleDNAAgent` only knows about style. The `RescueAgent` only knows about cart recovery. This prevents a "god object" monolith and allows our team to work on different agents in parallel.
+
+### `memory/`: The Abstracted Memory Layer
+
+This module provides an abstraction over our multi-tiered memory system. The agents do not know if they are talking to Redis, Firestore, or a local dictionary.
+
+*   **`thread_memory_manager.py`:** Provides a high-level interface like `retrieve_context(user_id)` or `update_history(user_id, interaction)`.
+*   **`redis_client.py`, `firestore_client.py`, `vector_store.py`:** These are the *implementations* of that interface. The `thread_memory_manager` decides whether to fetch data from the hot cache (Redis) or deep history (Firestore), but the agent requesting the data is unaware of this complexity.
+
+**Why this design?** This abstraction allows us to swap out our entire database backend without changing a single line of agent code. We can start with a simple in-memory cache for prototyping and scale to a full Redis/Firestore implementation for production.
+
+### `integrations/`: The Bridge to the Outside World
+
+This module contains the "glue" that connects WEAVE to external services.
+
+*   **`gemini_client.py`:** A dedicated, robust client for all Gemini API interactions. It handles authentication, error handling, retries, and the complexities of formatting prompts for multimodal inputs and function calling. It exposes a clean, internal API like `gemini_client.generate_content(...)` to the rest of the application.
+*   **`whatsapp_webhook.py`:** Manages the specific data formats and authentication requirements of the WhatsApp Business API. It translates incoming WhatsApp webhooks into a clean, internal `UserInput` object that the rest of the system can understand.
+*   **`[service]_client.py`:** Every external service (Razorpay, Shopify, etc.) gets its own dedicated client.
+
+**Why this design?** It isolates the messiness of external APIs. If WhatsApp changes its API format, we only have to update `whatsapp_webhook.py`; the core agent logic remains untouched.
+
+### `core/` (Hypothetical but important)
+
+While not explicitly listed in the initial structure, a mature version of this architecture would include a `core/` directory.
+*   **`core/schemas.py` or `core/models.py`:** This would define the pure Python data structures that are passed between all layers of the application (e.g., `User`, `Product`, `Interaction`). This ensures data consistency and provides a single source of truth for our application's data model.
+
+This disciplined, layered architecture is the key to building a system as ambitious as WEAVE. It ensures that as the intelligence of our agents grows, the complexity of the system remains manageable, testable, and ready for scale.
