@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Moolsh/Moolsh/main/logo.png" alt="WEAVE Logo" width="150">
+  <img src="pics/logo.png" alt="WEAVE Logo" width="150">
   
   # 🧵 WEAVE
   ### India's First Gemini-Native Commerce Intelligence OS
@@ -7,6 +7,11 @@
   [![Gemini 3 Hackathon](https://img.shields.io/badge/Gemini%203-Hackathon%20Submission-6366F1?style=for-the-badge&logo=google-gemini)](https://devpost.com)
   [![Built with Gemini 2.0](https://img.shields.io/badge/Powered%20by-Gemini%202.0-8B5CF6?style=for-the-badge&logo=google-gemini)](https://ai.google.dev)
   [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+  ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+  ![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688?style=for-the-badge&logo=fastapi)
+  ![Next.js](https://img.shields.io/badge/Next.js-14+-black?style=for-the-badge&logo=next.js&logoColor=white)
+  ![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Platform-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
+  ![Poetry](https://img.shields.io/badge/Poetry-Python%20PM-60A5FA?style=for-the-badge&logo=poetry&logoColor=white)
 
   **We're not just building a platform; we're weaving a soul into the fabric of digital commerce.**
   
@@ -189,7 +194,7 @@ class BaseAgent:
 1.  **Clone the repository:**
     ```bash
     git clone https://codeberg.org/princetheprogrammerbtw/WeaveAI.git
-    cd weave-commerce-os
+    cd WeaveAI
     ```
 
 2.  **Configure Environment:**
