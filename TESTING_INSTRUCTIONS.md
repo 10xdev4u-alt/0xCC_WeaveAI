@@ -4,7 +4,7 @@ Welcome, judges! You're about to experience WEAVE, India's first Gemini-Powered 
 
 **No login is required.** The experience is live and interactive.
 
-**🌐 LIVE DEMO URL:** [https://weave-demo.vercel.app](https://weave-demo.vercel.app)
+**🌐 LIVE DEMO URL:** [https://weaveaix.web.app/](https://weaveaix.web.app/)
 
 ---
 
